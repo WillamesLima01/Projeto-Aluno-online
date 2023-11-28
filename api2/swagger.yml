@@ -1,0 +1,427 @@
+openapi: 3.0.3
+info:
+  title: Aluno Online API Backend - OpenAPI 3.0
+  description: |-
+    Esta é a documentação do sistema Aluno Online, que oferece uma API para gerenciamento de alunos, professores, disciplinas e matrículas. Explore os endpoints disponíveis para realizar operações como criar, listar, atualizar e excluir informações relacionadas a alunos, professores, disciplinas e matrículas. Utilize esta documentação como guia para integrar e interagir com a API de forma eficiente e eficaz.
+
+  version: 1.0.11
+servers:
+  - url: https://localhost:8080
+tags:
+  - name: Aluno
+    description: Endpoints da Entidade Aluno
+    
+  - name: Professor
+    description: Endpoints da Entidade Professor
+    
+  - name: Disciplina
+    description: Endpoints da Entidade Disciplina
+
+  - name: MatriculaAluno
+    description: Endpoints da Entidade MatriculaAluno
+paths:
+  /aluno:
+    post:
+      tags:
+        - Aluno
+      summary: Cria um novo aluno
+      description: Cria um novo aluno com um ID
+      operationId: criarAluno
+      requestBody:
+        description: Dados do novo aluno
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+      responses:
+        '201':
+          description: Aluno criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+        '400':
+          description: ID inválido fornecido
+        '404':
+          description: Aluno não encontrado
+        '405':
+          description: Exceção de validação
+
+  /aluno/all:
+    get:
+      tags:
+        - Aluno
+      summary: Obtém todos os alunos
+      responses:
+        '200':
+          description: Lista de todos os alunos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Aluno'
+
+  /aluno/{id}:
+    get:
+      tags:
+        - Aluno
+      summary: Obtém um aluno pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Aluno encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Aluno'
+    delete:
+      tags:
+        - Aluno
+      summary: Exclui um aluno pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Aluno excluído com sucesso
+    put:
+      tags:
+        - Aluno
+      summary: Atualiza um aluno pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dados atualizados do aluno
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Aluno'
+      responses:
+        '204':
+          description: Aluno atualizado com sucesso
+  
+
+  /professor:
+    post:
+      tags:
+        - Professor
+      summary: Cria um novo professor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+      responses:
+        '201':
+          description: Professor criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+  /professor/all:
+    get:
+      tags:
+        - Professor
+      summary: Obtém todos os professores
+      responses:
+        '200':
+          description: Lista de professores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Professor'
+  /professor/{id}:
+    get:
+      tags:
+        - Professor
+      summary: Obtém um professor pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do professor
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Professor encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professor'
+    delete:
+      tags:
+        - Professor
+      summary: Exclui um professor pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do professor
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Professor excluído com sucesso
+    put:
+      tags:
+        - Professor
+      summary: Atualiza um professor pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do professor
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Professor'
+      responses:
+        '204':
+          description: Professor atualizado com sucesso
+  
+
+  /disciplina:
+    post:
+      tags:
+        - Disciplina
+      summary: Cria uma nova disciplina
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Disciplina'
+      responses:
+        '201':
+          description: Disciplina criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Disciplina'
+
+  /disciplina/all:
+    get:
+      tags:
+        - Disciplina
+      summary: Obtém todas as disciplinas
+      responses:
+        '200':
+          description: Lista de todas as disciplinas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Disciplina'
+
+  /disciplina/{id}:
+    get:
+      tags:
+        - Disciplina
+      summary: Obtém uma disciplina pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Disciplina encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Disciplina'
+    delete:
+      tags:
+        - Disciplina
+      summary: Exclui uma disciplina pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Disciplina excluída com sucesso
+    put:
+      tags:
+        - Disciplina
+      summary: Atualiza uma disciplina pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Disciplina'
+      responses:
+        '204':
+          description: Disciplina atualizada com sucesso
+
+  /disciplina/professor/{professorId}:
+    get:
+      tags:
+        - Disciplina
+      summary: Obtém todas as disciplinas de um professor pelo ID
+      parameters:
+        - name: professorId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de disciplinas do professor encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Disciplina'
+
+  /matricula-aluno:
+    post:
+      tags:
+        - MatriculaAluno
+      summary: Realiza uma nova matrícula de aluno
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatriculaAluno'
+      responses:
+        '201':
+          description: Matrícula realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /matricula-aluno/notas/{id}:
+    patch:
+      tags:
+        - MatriculaAluno
+      summary: Atualiza as notas de uma matrícula pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatriculaAluno'
+      responses:
+        '200':
+          description: Notas da matrícula atualizadas com sucesso
+
+  /matricula-aluno/patchStatusParaTrancado/{id}:
+    patch:
+      tags:
+        - MatriculaAluno
+      summary: Atualiza o status de uma matrícula para trancado pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Status da matrícula atualizado para trancado com sucesso
+
+
+
+
+components:
+  schemas:
+    Aluno:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string
+        curso:
+          type: string
+
+    Professor:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string
+        
+
+    Disciplina:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        professor:
+          type: string
+
+    MatriculaAluno:
+      type: object
+      properties:
+        id:
+          type: integer
+        aluno:
+          type: string
+        disciplina:
+          type: string
+        nota1:
+          type: integer
+        nota2:
+          type: integer
+        status:
+          type: string
+  
+  
